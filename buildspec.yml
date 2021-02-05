@@ -7,7 +7,6 @@ env:
     RELEASE: buster
     NGINX_VERSION: 1.18.0
     NGINX_DEB_RELEASE: 2
-
   secrets-manager:
     DOCKERHUB_USER: arn:aws:secretsmanager:ap-northeast-1:515414010648:secret:CodeBuild/docker-zXOOR3:username
     DOCKERHUB_TOKEN: arn:aws:secretsmanager:ap-northeast-1:515414010648:secret:CodeBuild/docker-zXOOR3:accesstoken
@@ -22,7 +21,7 @@ phases:
       - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
   build:
     commands:
-      - docker build -t build-nginx-brotli -f Dockerfile-deb --build-arg DISTRIB=${OS} --build-arg RELEASE=${DIST} --build-arg NGINX_VERSION=${NGINX_VERSION} --build-arg NGINX_DEB_RELEASE=${NGINX_DEB_RELEASE} .
+      - docker build -t build-nginx-brotli -f Dockerfile-deb --build-arg DISTRIB=debian --build-arg RELEASE=buster --build-arg NGINX_VERSION=1.18.0 --build-arg NGINX_DEB_RELEASE=2 .
   post_build:
     commands:
       - docker run build-nginx-brotli
