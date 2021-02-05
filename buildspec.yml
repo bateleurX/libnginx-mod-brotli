@@ -1,0 +1,32 @@
+version: 0.2
+
+env:
+  variables:
+    DOCKER_BUILDKIT: 1
+    OS: debian
+    RELEASE: buster
+    NGINX_VERSION: 1.18.0
+    NGINX_DEB_RELEASE: 2
+
+  secrets-manager:
+    DOCKERHUB_USER: arn:aws:secretsmanager:ap-northeast-1:515414010648:secret:CodeBuild/docker-zXOOR3:username
+    DOCKERHUB_TOKEN: arn:aws:secretsmanager:ap-northeast-1:515414010648:secret:CodeBuild/docker-zXOOR3:accesstoken
+
+phases:
+  pre_build:
+    commands:
+      # Docker Hub へのログイン
+      - echo Logging in to Docker Hub...
+      - echo $DOCKERHUB_TOKEN | docker login --username $DOCKERHUB_USER --password-stdin
+      # コミット ID をイメージタグに設定
+      - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
+  build:
+    commands:
+      - docker build -t build-nginx-brotli -f Dockerfile-deb --build-arg DISTRIB=${OS} --build-arg RELEASE=${DIST} --build-arg NGINX_VERSION=${NGINX_VERSION} --build-arg NGINX_DEB_RELEASE=${NGINX_DEB_RELEASE} .
+  post_build:
+    - docker run build-nginx-brotli
+    - docker cp $(docker ps -l -q):/src ~
+
+artifacts:
+  files:
+    - "*.deb"
