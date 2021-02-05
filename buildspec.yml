@@ -24,8 +24,9 @@ phases:
     commands:
       - docker build -t build-nginx-brotli -f Dockerfile-deb --build-arg DISTRIB=${OS} --build-arg RELEASE=${DIST} --build-arg NGINX_VERSION=${NGINX_VERSION} --build-arg NGINX_DEB_RELEASE=${NGINX_DEB_RELEASE} .
   post_build:
-    - docker run build-nginx-brotli
-    - docker cp $(docker ps -l -q):/src ~
+    commands:
+      - docker run build-nginx-brotli
+      - docker cp $(docker ps -l -q):/src ~
 
 artifacts:
   files:
