@@ -2,7 +2,6 @@ version: 0.2
 
 env:
   variables:
-    DOCKER_BUILDKIT: 1
     OS: debian
     RELEASE: buster
     NGINX_VERSION: 1.18.0
@@ -21,13 +20,13 @@ phases:
       - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
   build:
     commands:
-      - docker build -t build-nginx-brotli -f Dockerfile-deb --build-arg DISTRIB=debian --build-arg RELEASE=buster --build-arg NGINX_VERSION=1.18.0 --build-arg NGINX_DEB_RELEASE=2 .
+      - DOCKER_BUILDKIT=1 docker build -t build-nginx-brotli -f Dockerfile-deb --build-arg DISTRIB=debian --build-arg RELEASE=buster --build-arg NGINX_VERSION=1.18.0 --build-arg NGINX_DEB_RELEASE=2 .
   post_build:
     commands:
       - docker run build-nginx-brotli
-      - docker cp $(docker ps -l -q):/src .
+      - docker cp $(docker ps -l -q):/src/*.deb .
       - ls -lha .
 
 artifacts:
   files:
-    - "src/*.deb"
+    - "*.deb"
