@@ -29,13 +29,13 @@ ARG DISTRIB=debian
 ARG RELEASE=stretch
 
 FROM ${DISTRIB}:${RELEASE}
-MAINTAINER Cyril Aknine "caknine@clever-age.com"
+MAINTAINER MATSUURA, Yosuke "howl@rampage.red"
 
 ARG DISTRIB
 ARG RELEASE
 #ARG CHANGELOG_MSG
 ARG DEBIAN_FRONTEND="noninteractive"
-ENV TZ=Europe/Paris
+ENV TZ=UTC
 
 RUN apt-get update && apt-get --no-install-recommends --no-install-suggests -y install \
     git wget ca-certificates curl openssl gnupg2 apt-transport-https \

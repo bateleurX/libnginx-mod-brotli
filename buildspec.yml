@@ -20,7 +20,7 @@ phases:
       - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
   build:
     commands:
-      - DOCKER_BUILDKIT=1 docker build -t build-nginx-brotli -f Dockerfile-deb --build-arg DISTRIB=debian --build-arg RELEASE=buster --build-arg NGINX_VERSION=1.18.0 --build-arg NGINX_DEB_RELEASE=2 .
+      - DOCKER_BUILDKIT=1 docker build -t build-nginx-brotli -f Dockerfile-deb --build-arg DISTRIB=${OS} --build-arg RELEASE=${RELEASE} --build-arg NGINX_VERSION=${NGINX_VERSION} --build-arg NGINX_DEB_RELEASE=${NGINX_DEB_RELEASE} .
   post_build:
     commands:
       - docker run build-nginx-brotli
