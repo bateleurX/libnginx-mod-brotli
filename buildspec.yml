@@ -25,9 +25,9 @@ phases:
   post_build:
     commands:
       - docker run build-nginx-brotli
-      - docker cp $(docker ps -l -q):/src ~
-      - ls -lha ~
+      - docker cp $(docker ps -l -q):/src .
+      - ls -lha .
 
 artifacts:
   files:
-    - "*/*.deb"
+    - "src/*.deb"
