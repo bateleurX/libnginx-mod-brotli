@@ -1,15 +1,8 @@
+Modifiied version of Dockerfiles for building libnginx-mod-brotli for Debian / Ubuntu
 
-Dockerfiles for building libnginx-mod-brotli for Debian / Ubuntu
+これは[darylounet](https://github.com/darylounet)氏が作られた libnginx-mod-brotli ビルド用コンテナの改造バージョンです。主に CodeBuild でビルドするようにしたことや、arm64 に対応させているという違いがあります。
 
-[![packagecloud deb packages](https://img.shields.io/badge/deb-packagecloud.io-844fec.svg)](https://packagecloud.io/DaryL/libnginx-mod-brotli-stable) [![Build Status](https://travis-ci.org/darylounet/libnginx-mod-brotli.svg?branch=stable)](https://travis-ci.org/darylounet/libnginx-mod-brotli)
-
-If you're just interested in installing built packages, go there :
-https://packagecloud.io/DaryL/libnginx-mod-brotli-stable
-
-Instructions : https://packagecloud.io/DaryL/libnginx-mod-brotli-stable/install#manual-deb
-
-If you're interested in installing [mainline](https://packagecloud.io/DaryL/libnginx-mod-brotli-mainline) NGiNX packages, go there :
-https://packagecloud.io/DaryL/libnginx-mod-brotli-mainline
+適当な公開場所が見つかっておらず、今のところビルドした deb ファイルの公開は行っていません。
 
 If you want to build packages by yourself, this is for you :
 
@@ -30,6 +23,7 @@ docker build -t build-nginx-brotli -f Dockerfile-deb \
 ```
 
 Or for Ubuntu :
+
 ```bash
 docker build -t build-nginx-brotli -f Dockerfile-deb \
 --build-arg DISTRIB=ubuntu --build-arg RELEASE=bionic \
@@ -37,12 +31,14 @@ docker build -t build-nginx-brotli -f Dockerfile-deb \
 ```
 
 Then :
+
 ```bash
 docker run build-nginx-brotli
 docker cp $(docker ps -l -q):/src ~/Downloads/
 ```
 
 And once you don't need it anymore :
+
 ```bash
 docker rm $(docker ps -l -q)
 ```
@@ -53,6 +49,7 @@ Latest ngx_brotli version : https://github.com/google/ngx_brotli
 
 Get latest nginx version : https://nginx.org/en/download.html
 Or :
+
 ```bash
 curl -s https://nginx.org/packages/debian/pool/nginx/n/nginx/ |grep '"nginx_' | sed -n "s/^.*\">nginx_\(.*\)\~.*$/\1/p" |sort -Vr |head -1| cut -d'-' -f1
 ```
