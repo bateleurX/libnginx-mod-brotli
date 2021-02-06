@@ -30,4 +30,4 @@ phases:
 
 artifacts:
   files:
-  r  - "*/*.deb"
+    - "*/*.deb"
