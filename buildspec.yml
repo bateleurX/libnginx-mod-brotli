@@ -26,7 +26,7 @@ phases:
     commands:
       - docker run build-nginx-brotli
       - docker cp $(docker ps -l -q):/src ~
-      - ls -lha
+      - ls -lha ~
 
 artifacts:
   files:
