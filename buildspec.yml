@@ -11,18 +11,21 @@ env:
     DOCKERHUB_TOKEN: arn:aws:secretsmanager:ap-northeast-1:515414010648:secret:CodeBuild/docker-zXOOR3:accesstoken
 
 batch:
-  build-matrix:
-    static:
-      ignore-failure: false
+  fast-fail: false
+  build-list:
+    - identifier: x86-64
       env:
         type: LINUX_CONTAINER
         privileged-mode: true
-        compute-type: BUILD_GENERAL1_LARGE
-    dynamic:
+        image: aws/codebuild/amazonlinux2-x86_64-standard:3.0
+        compute-type: BBUILD_GENERAL1_LARGE
+      ignore-failure: true
+    - identifier: arm64
       env:
-        image:
-          - aws/codebuild/amazonlinux2-x86_64-standard:3.0
-          - aws/codebuild/amazonlinux2-aarch64-standard:2.0
+        type: ARM_CONTAINER
+        privileged-mode: true
+        image: aws/codebuild/amazonlinux2-aarch64-standard:2.0
+        compute-type: BBUILD_GENERAL1_LARGE
 
 phases:
   pre_build:
