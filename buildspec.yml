@@ -13,7 +13,7 @@ env:
 batch:
   fast-fail: false
   build-list:
-    - identifier: x86-64
+    - identifier: x86_64
       env:
         type: LINUX_CONTAINER
         privileged-mode: true
