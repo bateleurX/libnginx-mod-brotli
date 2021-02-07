@@ -18,14 +18,14 @@ batch:
         type: LINUX_CONTAINER
         privileged-mode: true
         image: aws/codebuild/amazonlinux2-x86_64-standard:3.0
-        compute-type: BBUILD_GENERAL1_LARGE
+        compute-type: BUILD_GENERAL1_LARGE
       ignore-failure: true
     - identifier: arm64
       env:
         type: ARM_CONTAINER
         privileged-mode: true
         image: aws/codebuild/amazonlinux2-aarch64-standard:2.0
-        compute-type: BBUILD_GENERAL1_LARGE
+        compute-type: BUILD_GENERAL1_LARGE
 
 phases:
   pre_build:
