@@ -10,6 +10,20 @@ env:
     DOCKERHUB_USER: arn:aws:secretsmanager:ap-northeast-1:515414010648:secret:CodeBuild/docker-zXOOR3:username
     DOCKERHUB_TOKEN: arn:aws:secretsmanager:ap-northeast-1:515414010648:secret:CodeBuild/docker-zXOOR3:accesstoken
 
+batch:
+  build-matrix:
+    static:
+      ignore-failure: false
+      env:
+        type: LINUX_CONTAINER
+        privileged-mode: true
+        compute-type: BUILD_GENERAL1_LARGE
+    dynamic:
+      env:
+        image:
+          - aws/codebuild/amazonlinux2-x86_64-standard:3.0
+          - aws/codebuild/amazonlinux2-aarch64-standard:2.0
+
 phases:
   pre_build:
     commands:
