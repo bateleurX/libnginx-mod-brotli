@@ -6,9 +6,6 @@ env:
     RELEASE: buster
     NGINX_VERSION: 1.18.0
     NGINX_DEB_RELEASE: 2
-  secrets-manager:
-    DOCKERHUB_USER: arn:aws:secretsmanager:ap-northeast-1:515414010648:secret:CodeBuild/docker-zXOOR3:username
-    DOCKERHUB_TOKEN: arn:aws:secretsmanager:ap-northeast-1:515414010648:secret:CodeBuild/docker-zXOOR3:accesstoken
 
 batch:
   fast-fail: false
